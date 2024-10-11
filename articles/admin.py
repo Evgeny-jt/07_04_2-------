@@ -14,21 +14,13 @@ class ScopeInlineFormset(BaseInlineFormSet):
         for form in self.forms:
             # В form.cleaned_data будет словарь с данными
             # каждой отдельной формы, которые вы можете проверить
-            form.cleaned_data
-            print('----', form.cleaned_data)
-            # print(form.cleaned_data['is_main'])
             if form.cleaned_data != {}:
-                print('не пустой')
                 if form.cleaned_data['is_main'] == True:
-                    print('есть галочка')
                     count += 1
-            else:
-                print('ПУСТОЙ')
         if count == 0:
             raise ValidationError('Нет ни одной галочки')
         elif count > 1:
             raise ValidationError('Галочек больше чем одна')
-
             # вызовом исключения ValidationError можно указать админке о наличие ошибки
             # таким образом объект не будет сохранен,
             # а пользователю выведется соответствующее сообщение об ошибке
